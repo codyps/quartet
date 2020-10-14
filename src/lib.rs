@@ -1,5 +1,5 @@
 #![warn(rust_2018_idioms, missing_debug_implementations, missing_docs)]
-//! `nib` provides useful abstractions for working with data that is described/structure in 4-bit
+//! `quartet` provides useful abstractions for working with data that is described/structure in 4-bit
 //! chunks.
 //!
 //!
