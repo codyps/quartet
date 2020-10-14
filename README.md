@@ -1,6 +1,6 @@
-# nib
+# quartet
 
-Nibble (nyble, nybble, half-byte, semi-octet, quadbit, quartet, hex digit)
+Nibble (nyble, nybble, half-byte, semi-octet, quadbit, quartet, hex digit, u4, nib)
 slices and references
 
 [Comparison of avaliable nibble crates](COMPARE.md)
