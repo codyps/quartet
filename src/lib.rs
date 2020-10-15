@@ -292,20 +292,16 @@ impl<'a> SliceIndex<'a> for ops::Range<usize> {
     type Output = NibSlice<'a>;
 
     fn get(self, slice: &NibSlice<'a>) -> Option<Self::Output> {
-        eprintln!("{:?} {:#x?}", self, slice);
         if self.start > self.end {
-            eprintln!("1: {} {}", self.start, self.end);
             return None;
         }
 
         if self.end > slice.len() {
-            eprintln!("2: {} {}", self.end, slice.len());
             return None;
         }
 
         let (b_start, exclude_first) = b(slice.exclude, self.start);
         let (b_end, end_is_low) = b(slice.exclude, self.end + 1);
-        eprintln!("bs: {:?}, ef: {:?}, be: {:?}, eil: {:?}", b_start, exclude_first, b_end, end_is_low);
 
         /*
         let b_end = if b_start == b_end {
