@@ -12,10 +12,11 @@
 //use std::fmt;
 use std::ops;
 
-/// A slice (`[T]`) over nibs (4-bit values)
+/// A const slice (`&[u4]`) over nibbles (4-bit values)
 ///
-/// Internally, it operates on an array of bytes, and interprets them as pairs of nibs. This is
-/// intended to allow use of a `NibSlice` to examine binary structures that are composed of nibs.
+/// Internally, it operates on an array of bytes, and interprets them as pairs of nibbles. This is
+/// intended to allow use of a `NibSlice` to examine binary structures that are composed of
+/// nibbles.
 ///
 /// For each byte, the nibble composed of the lower bits (mask = `0x0f`) is considered to come
 /// before the nibble composed of the higher bits (mask = `0xf0`).
@@ -59,8 +60,10 @@ impl<'a> NibSlice<'a> {
     }
 
     /// Split the [`NibSlice`] into 2 [`NibSlice`]s at the nibble offset given
-    pub fn split_at(&self, _offset: usize) -> (NibSlice<'a>, NibSlice<'a>) {
-        unimplemented!()
+    ///
+    /// The nibble at `offset` is included in the second slice returned
+    pub fn split_at(&self, offset: usize) -> (NibSlice<'a>, NibSlice<'a>) {
+        (self.index(..offset), self.index(offset..))
     }
 
     /// Index, using various ranges, a `NibSlice` into `NibSlice`s that are sub-slices
@@ -162,7 +165,9 @@ impl<'a> NibSlice<'a> {
 }
 
 /// Iterate over a [`NibSlice`], returning a nibble for each item
-#[derive(Debug)]
+///
+/// Use [`NibSlice::iter()`] to create
+#[derive(Debug, Clone)]
 pub struct Iter<'a> {
     inner: NibSlice<'a>, 
 }
@@ -488,7 +493,7 @@ mod test_nibslice {
     }
 }
 
-/// Which nibs are excluded from the [`NibSlice`] but are included in the internal `[u8]`
+/// Which nibbles are excluded from the [`NibSlice`] but are included in the internal `[u8]`
 // NOTE: if we want to represent general bit chunks (rather than exactly 4-bit chunks) we'd need a
 // pair of offsets that hold values between 0 and 7.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
