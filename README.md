@@ -3,6 +3,24 @@
 Nibble (nyble, nybble, half-byte, semi-octet, quadbit, quartet, hex digit, u4, nib)
 slices and references
 
+```
+use quartet::NibSlice;
+let n = NibSlice::from_bytes_skip_last(&[0x12, 0x34]);
+
+// 3 nibbles
+assert_eq!(n.len(), 3);
+
+// indexing uses the `index()` function (need to return structures)
+let m = n.index(1..);
+
+// 2 nibbles
+assert_eq!(m.len(), 2);
+
+// [2, 3]
+assert_eq!(m, NibSlice::from_bytes(&[0x23]));
+```
+
+
 [Comparison of avaliable nibble crates](COMPARE.md)
 
 ## License

@@ -10,3 +10,6 @@ documentation = "https://docs.rs/quartet"
 include = ["Cargo.toml", "src/**/*.rs", "README.md"]
 
 [dependencies]
+
+[dev-dependencies]
+doc-comment = "0.3.3"

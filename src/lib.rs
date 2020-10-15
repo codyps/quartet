@@ -491,6 +491,23 @@ mod test_nibslice {
         assert_eq!(i.next(), None);
         assert_eq!(i.next(), None);
     }
+
+    #[test]
+    fn index_3() {
+        let n = NibSlice::from_bytes_skip_last(&[0x12, 0x34]);
+
+        // 3 nibbles
+        assert_eq!(n.len(), 3);
+
+        // indexing uses the `index()` function (need to return structures)
+        let m = n.index(1..);
+
+        // 2 nibbles
+        assert_eq!(m.len(), 2);
+
+        // [2, 3]
+        assert_eq!(m, NibSlice::from_bytes(&[0x23]));
+    }
 }
 
 /// Which nibbles are excluded from the [`NibSlice`] but are included in the internal `[u8]`
@@ -550,3 +567,8 @@ impl Exclude {
     }
 }
 
+#[cfg(doctest)]
+mod doctest {
+    use doc_comment::doctest;
+    doctest!("../README.md");
+}
