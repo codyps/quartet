@@ -9,7 +9,7 @@
 //! assert_eq!(nib_slice.index(1), 2);
 //! ```
 
-//use std::fmt;
+use std::fmt;
 use std::ops;
 
 /// A const slice (`&[u4]`) over nibbles (4-bit values)
@@ -20,7 +20,7 @@ use std::ops;
 ///
 /// For each byte, the nibble composed of the lower bits (mask = `0x0f`) is considered to come
 /// before the nibble composed of the higher bits (mask = `0xf0`).
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy)]
 pub struct NibSlice<'a> {
     exclude: Exclude,
     inner: &'a [u8],
@@ -374,19 +374,15 @@ impl<'a> TryFrom<NibSlice<'a> for u8 {
 }
 */
 
-/*
 impl<'a> fmt::Debug for NibSlice<'a> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let mut dl = f.debug_list();
-        /*
         for i in self.iter() {
             dl.entry(&i);
         }
-        */
         dl.finish()
     }
 }
-*/
 
 #[cfg(test)]
 mod test_nibslice {
