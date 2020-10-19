@@ -384,6 +384,15 @@ impl<'a> fmt::Debug for NibSlice<'a> {
     }
 }
 
+impl<'a> fmt::Display for NibSlice<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for i in self.iter() {
+            write!(f, "{}", i)?
+        }
+        Ok(())
+    }
+}
+
 #[cfg(test)]
 mod test_nibslice {
     use super::*;
