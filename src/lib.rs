@@ -2,12 +2,25 @@
 //! `quartet` provides useful abstractions for working with data that is described/structure in 4-bit
 //! chunks.
 //!
+//! # Examples
 //!
 //! ```
 //! use quartet::NibSlice;
 //! let nib_slice = NibSlice::from_bytes_skip_last(&[0x12, 0x34, 0x50]);
+//! println!("{}", nib_slice); // "12345"
+//! assert_eq!(format!("{}", nib_slice), "12345");
 //! assert_eq!(nib_slice.index(1), 2);
 //! ```
+//!
+//! ```
+//! use quartet::NibSlice;
+//! let ns = NibSlice::from_bytes_exclude(&[0x12, 0x34, 0x56], quartet::Exclude::Both);
+//! assert_eq!(ns, NibSlice::from_bytes(&[0x23, 0x45]));
+//!
+//! let sns = ns.index(1..);
+//! assert_eq!(sns, NibSlice::from_bytes_skip_last(&[0x34, 0x50]));
+//! ```
+//!
 
 use std::fmt;
 use std::ops;
